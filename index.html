@@ -163,11 +163,12 @@
 
     async function loadMedia() {
       const urlParams = new URLSearchParams(window.location.search);
-      const galleryId = urlParams.get('id') || 'default'; 
-      const personName = urlParams.get('name') || 'Team Member'; 
+      const galleryId = urlParams.get('id') || 'Aurax Project'; 
 
-      document.getElementById('welcome-message').innerText = `Welcome to the Aurax Project Gallery, ${personName}!`;
+      // Capitalize the first letter so "devs" becomes "Devs"
+      const displayName = galleryId.charAt(0).toUpperCase() + galleryId.slice(1);
 
+     document.getElementById('welcome-message').innerText = `Welcome ${displayName}`;
       const FOLDER_ID = folderDictionary[galleryId];
 
       if (!FOLDER_ID) {
