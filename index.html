@@ -60,6 +60,38 @@
       height: 100%;
       object-fit: cover;
     }
+
+    /* --- WELCOME POPUP STYLES --- */
+    #welcome-popup {
+      display: none; 
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .popup-content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+      max-width: 90%;
+      width: 400px;
+    }
+    .popup-content h2 { margin: 0 0 10px 0; color: #333; font-size: 1.8rem; }
+    .popup-content p { margin: 0 0 25px 0; color: #666; font-size: 1.1rem; font-style: italic; }
+    .start-btn {
+      padding: 12px 30px; background: #0056b3; color: white;
+      border: none; border-radius: 6px; font-size: 1.1rem;
+      font-weight: bold; cursor: pointer; transition: background 0.2s ease;
+    }
+    .start-btn:hover { background: #004494; }
     
     .video-badge {
       position: absolute;
@@ -70,6 +102,16 @@
       border-radius: 4px;
       font-size: 0.8rem;
       font-weight: bold;
+    }
+
+    /* --- FOOTER STYLES --- */
+    .site-footer {
+      text-align: center;
+      padding: 40px 20px 20px;
+      color: #777;
+      font-size: 0.9rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .download-btn { 
@@ -124,6 +166,15 @@
     <p id="login-error" style="color:red; display:none;">Incorrect Password</p>
   </div>
 
+  <!-- The Welcome Popup -->
+  <div id="welcome-popup">
+    <div class="popup-content" id="popup-box">
+      <h2>Welcome to the Take a Look Back</h2>
+      <p>by - Chrn</p>
+      <button class="start-btn" onclick="closePopup()">Enter Gallery</button>
+    </div>
+  </div>
+
   <div class="content-wrapper">
     <h1 id="welcome-message">Aurax Project Gallery</h1>
     <div class="gallery" id="gallery">Fetching media...</div>
@@ -156,10 +207,33 @@
       const password = document.getElementById('password-input').value;
       if (password === '1146') { 
         document.getElementById('login-screen').style.display = 'none';
+        
+        // Trigger the popup animation
+        const popup = document.getElementById('welcome-popup');
+        const popupBox = document.getElementById('popup-box');
+        popup.style.display = 'flex';
+        
+        setTimeout(() => {
+          popup.style.opacity = '1';
+          popupBox.style.transform = 'translateY(0)';
+        }, 10);
+
         loadMedia(); 
-      } else {
+      }else {
         document.getElementById('login-error').style.display = 'block';
       }
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('welcome-popup');
+      const popupBox = document.getElementById('popup-box');
+      
+      popup.style.opacity = '0';
+      popupBox.style.transform = 'translateY(-20px)';
+      
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 400);
     }
 
     async function loadMedia() {
@@ -254,5 +328,8 @@
       if (e.target === this) closeLightbox();
     });
   </script>
+  <footer class="site-footer">
+    with love Auraverse
+  </footer>
 </body>
 </html>
