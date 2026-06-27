@@ -176,7 +176,7 @@
         return;
       }
 
-      const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents&fields=files(id,name,mimeType,thumbnailLink,webContentLink,webViewLink)&key=${API_KEY}`;
+      const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents&pageSize=1000&fields=files(id,name,mimeType,thumbnailLink,webContentLink,webViewLink)&key=${API_KEY}`;
       
       try {
         const response = await fetch(url);
